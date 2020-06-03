@@ -1,0 +1,14 @@
+services:
+  Fozzy\GraphQLBundle\EventSubscriber\GraphqlSchemaCreate:
+    autowire: true
+    autoconfigure: true
+    arguments:
+      $mutations_dir: '%graphql.mutations_cache%'
+      $query_dir: '%graphql.queries_cache%'
+      $tagged_queries: !tagged graphql_query
+      $tagged_mutations: !tagged graphql_mutation
+
+  Fozzy\GraphQLBundle\Controller\:
+    resource: '../../Controller/'
+    autowire: true
+    tags: ['controller.service_arguments']

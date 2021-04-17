@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpPrivateFieldCanBeLocalVariableInspection */
 
 
 namespace Fozzy\GraphQLBundle\GraphQL;

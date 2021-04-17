@@ -2,24 +2,32 @@
 
 namespace Fozzy\GraphQLBundle\DependencyInjection\Compiler;
 
+use Composer\Autoload\ClassMapGenerator;
 use Fozzy\GraphQLBundle\Annotation\GraphQL\MarkToRemove;
-
 use Fozzy\GraphQLBundle\GraphQL\ExecutionContext;
 use Fozzy\GraphQLBundle\GraphQL\GraphqlMutationInterface;
 use Fozzy\GraphQLBundle\GraphQL\GraphqlQueryInterface;
 use Fozzy\GraphQLBundle\GraphQL\GraphqlTypeInterface;
+use ReflectionClass;
+use ReflectionException;
+use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\ClassLoader\ClassMapGenerator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Filesystem\Filesystem;
 use Youshido\GraphQL\Field\AbstractField;
 
-
-
+/**
+ * Class GraphQLCompilerPath
+ *
+ * @package Fozzy\GraphQLBundle\DependencyInjection\Compiler
+ */
 class GraphQLCompilerPath implements CompilerPassInterface
 {
-
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
     private $annotations_reader;
@@ -28,6 +36,11 @@ class GraphQLCompilerPath implements CompilerPassInterface
 
     private $mutations;
 
+    /**
+     * @param ContainerBuilder $container
+     *
+     * @throws ReflectionException
+     */
     public function process(ContainerBuilder $container)
     {
         $this->container = $container;
@@ -35,17 +48,17 @@ class GraphQLCompilerPath implements CompilerPassInterface
         $this->mutations = [];
         $this->queries = [];
         foreach ($container->getParameter('kernel.bundles') as $bundle) {
-            $reflection = new \ReflectionClass($bundle);
+            $reflection = new ReflectionClass($bundle);
             $dir_mutations = dirname($reflection->getFileName()).'/GraphQL/Mutation';
-            if(is_dir($dir_mutations)){
+            if (is_dir($dir_mutations)) {
                 $this->mutations = array_merge($this->mutations, $this->_getMutations($dir_mutations));
             }
-            $dir_queries =  dirname($reflection->getFileName()).'/GraphQL/Query';
-            if(is_dir($dir_queries)){
+            $dir_queries = dirname($reflection->getFileName()).'/GraphQL/Query';
+            if (is_dir($dir_queries)) {
                 $this->queries = array_merge($this->queries, $this->_getMutations($dir_queries));
             }
             $types = dirname($reflection->getFileName()).'/GraphQL/Type';
-            if(is_dir($types)){
+            if (is_dir($types)) {
                 $this->processTypes($types);
             }
         }
@@ -60,7 +73,7 @@ class GraphQLCompilerPath implements CompilerPassInterface
         $queries_file = $mutations_dir.'queries.php';
         $filesystem = new Filesystem();
 
-        if(!$filesystem->exists($mutations_dir)){
+        if (!$filesystem->exists($mutations_dir)) {
             $filesystem->mkdir($mutations_dir);
         }
 
@@ -68,41 +81,50 @@ class GraphQLCompilerPath implements CompilerPassInterface
         $filesystem->dumpFile($queries_file, sprintf("<?php return \n [%s]\n;", implode(",\n", $this->queries)));
         $container->setParameter('graphql.mutations_cache', $mutations_file);
         $container->setParameter('graphql.queries_cache', $queries_file);
-        $this->container->setParameter('graphql.execution_context.class',ExecutionContext::class );
+        $this->container->setParameter('graphql.execution_context.class', ExecutionContext::class);
 
         $definition = $this->container->getDefinition('graphql.execution_context');
         $definition->setAutowired(true);
         $this->container->setDefinition('graphql.execution_context', $definition);
     }
 
-
-
-    private function processTaggedQueries(){
+    private function processTaggedQueries()
+    {
         $callback = function ($res) {
             $this->queries = array_merge($this->queries, $res);
         };
-        $this->processByTag('graphql_query', $callback);
+        $this->processByTag(GraphqlQueryInterface::TAG_MAME, $callback);
     }
 
-    private function processTaggedMutations(){
+    private function processTaggedMutations()
+    {
         $callback = function ($res) {
             $this->mutations = array_merge($this->mutations, $res);
         };
-        $this->processByTag('graphql_mutation', $callback);
+        $this->processByTag(GraphqlMutationInterface::TAG_MAME, $callback);
     }
 
-    private function processByTag($tag, callable  $callback){
+    /**
+     * @param          $tag
+     * @param callable $callback
+     *
+     * @throws ReflectionException
+     */
+    private function processByTag($tag, callable $callback)
+    {
         $services = $this->container->findTaggedServiceIds($tag, true);
         $tagged_with_container = [];
-        if($services && count($services)){
-            foreach ($services as $id => $tags){
+        if ($services && count($services)) {
+            foreach ($services as $id => $tags) {
                 $def = $this->container->getDefinition($id);
                 $class_string = '$this->container->get('.$id.'::class)';
-                $cl = new \ReflectionClass($id);
-                if(!$cl->isSubclassOf(AbstractField::class)) continue;
-                if(($ann = $this->annotations_reader->getClassAnnotation($cl, MarkToRemove::class))){
-                    if($ann->force) {
-                        $class_string = '//' . $class_string;
+                $cl = new ReflectionClass($id);
+                if (!$cl->isSubclassOf(AbstractField::class)) {
+                    continue;
+                }
+                if (($ann = $this->annotations_reader->getClassAnnotation($cl, MarkToRemove::class))) {
+                    if ($ann->force) {
+                        $class_string = '//'.$class_string;
                     }
                     $class_string .= $this->getCommentByAnnotation($ann);
                 }
@@ -113,54 +135,104 @@ class GraphQLCompilerPath implements CompilerPassInterface
         }
     }
 
-    private function processTypes($types){
+    /**
+     * @param $types
+     *
+     * @throws ReflectionException
+     */
+    private function processTypes($types)
+    {
         $types_map = ClassMapGenerator::createMap($types);
         foreach ($types_map as $class => $path) {
-            $cl = new \ReflectionClass($class);
-            if($cl->implementsInterface(GraphqlTypeInterface::class)){
-                $this->addToContainer($class, 'graphql_type');
+            $reflected = new ReflectionClass($class);
+            if ($reflected->implementsInterface(GraphqlTypeInterface::class)) {
+                $this->validateConstructor($reflected);
+                $this->addToContainer($class, ['graphql_type']);
             }
         }
     }
 
+    /**
+     * @param $path
+     *
+     * @return array
+     * @throws ReflectionException
+     */
     private function _getMutations($path)
     {
-
         $class_map = ClassMapGenerator::createMap($path);
         $mutations = [];
         foreach ($class_map as $class => $path) {
-            $cl = new \ReflectionClass($class);
+            $cl = new ReflectionClass($class);
 
-            if($cl->implementsInterface(GraphqlQueryInterface::class)){
-                $this->validateConstructor($cl);
-                $this->addToContainer($class,'graphql_query');
-                continue;
-            }elseif ($cl->implementsInterface(GraphqlMutationInterface::class)){
-                $this->validateConstructor($cl);
-                $this->addToContainer($class,'graphql_mutation');
+            if ($cl->isAbstract()) {
                 continue;
             }
 
-            if($cl->isTrait() || $cl->isAbstract()) continue;
+            if (
+                $cl->implementsInterface(GraphqlQueryInterface::class)
+                || $cl->implementsInterface(GraphqlMutationInterface::class)
+            ) {
+                $this->validateConstructor($cl);
+                $this->addToContainer($class, static::getTags($cl));
+                continue;
+            }
+
+            if ($cl->implementsInterface(GraphqlQueryInterface::class)) {
+                $this->validateConstructor($cl);
+                $this->addToContainer($class, static::getTags($cl));
+                continue;
+            } elseif ($cl->implementsInterface(GraphqlMutationInterface::class)) {
+                $this->validateConstructor($cl);
+                $this->addToContainer($class, static::getTags($cl));
+                continue;
+            }
+
+
+            if ($cl->isTrait() || $cl->isAbstract()) {
+                continue;
+            }
             $constructor = $cl->getConstructor();
             $arguments = $constructor->getParameters();
             $constructor_is_valid = (count($arguments) == 1 && $arguments[0]->isArray());
 
             if ($cl->isInstantiable() && $constructor_is_valid && $cl->isSubclassOf(AbstractField::class)) {
-                $class_string = ' new ' . $class . '()';
-                if(($ann = $this->annotations_reader->getClassAnnotation($cl, MarkToRemove::class))){
-                    if($ann->force) {
-                        $class_string = '//' . $class_string;
+                $class_string = ' new '.$class.'()';
+                if (($ann = $this->annotations_reader->getClassAnnotation($cl, MarkToRemove::class))) {
+                    if ($ann->force) {
+                        $class_string = '//'.$class_string;
                     }
                     $class_string .= $this->getCommentByAnnotation($ann);
                 }
                 $mutations[] = $class_string;
             }
         }
+
         return $mutations ?? [];
     }
 
-    private function validateConstructor(\ReflectionClass $class){
+    /**
+     * @param ReflectionClass $cl
+     *
+     * @return array
+     */
+    private static function getTags(ReflectionClass $cl): array
+    {
+        $tags = [];
+        if ($cl->implementsInterface(GraphqlQueryInterface::class)) {
+            $tags[] = GraphqlQueryInterface::TAG_MAME;
+        } elseif ($cl->implementsInterface(GraphqlMutationInterface::class)) {
+            $tags[] = GraphqlMutationInterface::TAG_MAME;
+        }
+
+        return $tags;
+    }
+
+    /**
+     * @param ReflectionClass $class
+     */
+    private function validateConstructor(ReflectionClass $class)
+    {
         $constructor = $class->getConstructor();
         $filename = $constructor->getFileName();
         $start_line = $constructor->getStartLine() - 1; // it's actually - 1, otherwise you wont get the function() block
@@ -170,37 +242,82 @@ class GraphQLCompilerPath implements CompilerPassInterface
         $source = file($filename);
         $body = implode("", array_slice($source, $start_line, $length));
         $body = preg_replace('/\s+/', '', $body);
-        if($constructor->getDeclaringClass() == $class){
-            $type = $class->implementsInterface(GraphqlQueryInterface::class) ? 'Query' : 'Mutation';
-            if((strpos($body, 'parent::__construct([])') === FALSE)) {
-                throw new \RuntimeException($type .' ' . $class->getName() . ' must call parent::__construct([])');
-            }elseif ((strpos($body, '//parent::__construct([])') !== FALSE) || (strpos($body, '/*parent::__construct([]);*/') !== FALSE)){
-                throw new \RuntimeException($type .' ' . $class->getName() . ' must call parent::__construct([])');
+        if ($constructor->getDeclaringClass() == $class) {
+            $type = static::getType($class);
+            if ((strpos($body, 'parent::__construct([])') === false)) {
+                throw new RuntimeException($type.' '.$class->getName().' must call parent::__construct([])');
+            } elseif ((strpos($body, '//parent::__construct([])') !== false) || (strpos($body, '/*parent::__construct([]);*/') !== false)) {
+                throw new RuntimeException($type.' '.$class->getName().' must call parent::__construct([])');
+            }
+        }
+    }
+
+    /**
+     * @param ReflectionClass $class
+     *
+     * @return string
+     */
+    private static function getType(ReflectionClass $class)
+    {
+        $map = [
+            GraphqlQueryInterface::class    => 'Query',
+            GraphqlMutationInterface::class => 'Mutation',
+            GraphqlTypeInterface::class     => 'Type',
+        ];
+        foreach ($map as $k => $v) {
+            if ($class->implementsInterface($k)) {
+                return $v;
             }
         }
 
+        return '';
     }
 
-    private function addToContainer($class, $tag ){
-        $definition = new Definition($class);
-        $definition->setAutowired(true);
-        $definition->setPrivate(false);
-        $definition->addTag($tag);
-        //$definition->setLazy(true);
+    /**
+     * @param $class
+     *
+     * @return Definition
+     */
+    private function getDefinition($class)
+    {
+        if ($this->container->has($class)) {
+            return $this->container->getDefinition($class);
+        }
+
+        return new Definition($class);
+    }
+
+    /**
+     * @param       $class
+     * @param array $tags
+     */
+    private function addToContainer($class, array $tags)
+    {
+        $definition = $this->getDefinition($class);
+        $definition->setAutowired(true)
+            ->setPrivate(false);
+        foreach ($tags as $tag) {
+            $definition->addTag($tag);
+        }
+
         $this->container->setDefinition($class, $definition);
     }
 
-    private function getCommentByAnnotation($ann){
-        //$str = '/* mark to remove */';
+    /**
+     * @param $ann
+     *
+     * @return string
+     */
+    private function getCommentByAnnotation($ann)
+    {
         $el = ['mark to remove'];
-        if(isset($ann->version)){
-            //$str .= "/* version: {$ann->version} */";
+        if (isset($ann->version)) {
             $el[] = "version: {$ann->version}";
         }
-        if(isset($ann->from)){
-            //$str .= "/* from: {$ann->from} */";
+        if (isset($ann->from)) {
             $el[] = " from: {$ann->from} ";
         }
-        return '/*'. implode(' ', $el) . '*/';
+
+        return '/*'.implode(' ', $el).'*/';
     }
 }

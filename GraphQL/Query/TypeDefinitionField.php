@@ -16,7 +16,7 @@ use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Field\AbstractField;
 
-class FozzyTypeDefinitionField extends AbstractField implements GraphqlQueryInterface
+class TypeDefinitionField extends AbstractField implements GraphqlQueryInterface
 {
 
     private $container;

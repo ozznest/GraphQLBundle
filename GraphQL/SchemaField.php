@@ -3,9 +3,9 @@
 
 namespace Ozznest\GraphQLBundle\GraphQL;
 
-use Youshido\GraphQL\Introspection\Field\SchemaField;
+use Youshido\GraphQL\Introspection\Field\SchemaField as BaseSchemaField;
 
-class FozzySchemaField extends SchemaField
+class SchemaField extends BaseSchemaField
 {
 
     public function __construct(array $config = [])

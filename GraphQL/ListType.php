@@ -7,7 +7,7 @@ use Youshido\GraphQL\Config\Object\ListTypeConfig;
 use Youshido\GraphQL\Type\ListType\AbstractListType;
 use Youshido\GraphQL\Type\TypeInterface;
 
-class FozzyListType extends AbstractListType
+class ListType extends AbstractListType
 {
     public function __construct($itemType)
     {

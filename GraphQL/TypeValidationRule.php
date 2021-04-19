@@ -9,9 +9,9 @@ use Youshido\GraphQL\Type\AbstractType;
 use Youshido\GraphQL\Type\TypeFactory;
 use Youshido\GraphQL\Type\TypeService;
 use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
-use Youshido\GraphQL\Validator\ConfigValidator\Rules\TypeValidationRule;
+use Youshido\GraphQL\Validator\ConfigValidator\Rules\TypeValidationRule as BaseTypeValidationRule;
 
-class FozzyTypeValidationRule extends TypeValidationRule
+class TypeValidationRule extends BaseTypeValidationRule
 {
     private $configValidator;
 
@@ -44,7 +44,7 @@ class FozzyTypeValidationRule extends TypeValidationRule
                 return TypeFactory::getScalarType($ruleInfo)->isValidValue($data);
 
             case TypeService::TYPE_GRAPHQL_TYPE:
-                return FozzyTypeService::isGraphQLType($data);
+                return TypeService::isGraphQLType($data);
 
             case TypeService::TYPE_OBJECT_TYPE:
                 return TypeService::isObjectType($data);

@@ -43,7 +43,7 @@ class Processor extends BaseProcessor
     {
 
         parent::__construct($executionContext, $eventDispatcher);
-        $this->resolveValidator = new FozzyResolveValidator($this->executionContext);
+        $this->resolveValidator = new ResolveValidator($this->executionContext);
     }
 
 

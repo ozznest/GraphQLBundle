@@ -7,9 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Youshido\GraphQL\Exception\ConfigurationException;
 use Youshido\GraphQL\Schema\AbstractSchema;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
-use Youshido\GraphQL\Validator\SchemaValidator\SchemaValidator;
+use Youshido\GraphQL\Validator\SchemaValidator\SchemaValidator as BaseSchemaValidator;
 
-class FozzySchemaValidator extends SchemaValidator
+class SchemaValidator extends BaseSchemaValidator
 {
     private $container;
 
@@ -26,7 +26,7 @@ class FozzySchemaValidator extends SchemaValidator
             throw new ConfigurationException('Schema has to have fields');
         }
 
-        $this->configValidator = FozzyConfigValidator::getInstance();
+        $this->configValidator = ConfigValidator::getInstance();
 
 
         foreach ($schema->getQueryType()->getConfig()->getFields() as $field) {

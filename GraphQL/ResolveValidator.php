@@ -15,7 +15,7 @@ use Youshido\GraphQL\Type\TypeService;
 use Youshido\GraphQL\Type\Union\AbstractUnionType;
 use Youshido\GraphQL\Validator\ResolveValidator\ResolveValidator;
 
-class FozzyResolveValidator extends ResolveValidator
+class ResolveValidator extends ResolveValidator
 {
 
     private $executionContext;

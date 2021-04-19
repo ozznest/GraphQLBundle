@@ -39,8 +39,8 @@ class ExecutionContext extends BaseExecutionContext
         $cnt = new SymfonyContainer();
         $cnt->setContainer($container);
         $this->setContainer($cnt);
-        $validator = FozzyConfigValidator::getInstance();
-        $validator->addRule('type', new FozzyTypeValidationRule($validator));
+        $validator = ConfigValidator::getInstance();
+        $validator->addRule('type', new TypeValidationRule($validator));
         $this->validateSchema();
 
         $this->typeFieldLookupTable = [];
@@ -49,7 +49,7 @@ class ExecutionContext extends BaseExecutionContext
     protected function validateSchema()
     {
         try {
-            (new FozzySchemaValidator($this->getContainer()->getSymfonyContainer()))->validate($this->schema);
+            (new SchemaValidator($this->getContainer()->getSymfonyContainer()))->validate($this->schema);
         } catch (\Exception $e) {
             $this->addError($e);
         };

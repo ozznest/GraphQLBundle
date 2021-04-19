@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
-use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
+use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator as BaseConfigValidator;
 
 
-class FozzyConfigValidator extends ConfigValidator
+class ConfigValidator extends BaseConfigValidator
 {
 
     private function __construct()
@@ -16,7 +16,7 @@ class FozzyConfigValidator extends ConfigValidator
 
     protected function initializeRules()
     {
-        $this->validationRules['type'] = new FozzyTypeValidationRule($this);
+        $this->validationRules['type'] = new TypeValidationRule($this);
     }
 
     public static function getInstance()

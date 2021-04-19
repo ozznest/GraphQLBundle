@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
 
 interface GraphqlTypeInterface

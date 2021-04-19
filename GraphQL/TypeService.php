@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
 
 use Youshido\GraphQL\Type\AbstractType;
-use Youshido\GraphQL\Type\TypeService;
+use Youshido\GraphQL\Type\TypeService as BaseTypeService;
 
-class FozzyTypeService extends TypeService
+class TypeService extends BaseTypeService
 {
     public static function isGraphQLType($type)
     {

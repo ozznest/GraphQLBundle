@@ -1,6 +1,6 @@
 <?php
 
-namespace Fozzy\GraphQLBundle\Event;
+namespace Ozznest\GraphQLBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 

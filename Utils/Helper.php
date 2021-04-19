@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\Utils;
+namespace Ozznest\GraphQLBundle\Utils;
 
 
 class Helper

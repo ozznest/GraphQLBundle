@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL\Query;
+namespace Ozznest\GraphQLBundle\GraphQL\Query;
 
 
-use Fozzy\GraphQLBundle\GraphQL\GraphqlQueryInterface;
+use Ozznest\GraphQLBundle\GraphQL\GraphqlQueryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Youshido\GraphQL\Config\Field\FieldConfig;
 use Youshido\GraphQL\Execution\ResolveInfo;
@@ -16,7 +16,7 @@ use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Field\AbstractField;
 
-class FozzyTypeDefinitionField extends AbstractField implements GraphqlQueryInterface
+class TypeDefinitionField extends AbstractField implements GraphqlQueryInterface
 {
 
     private $container;

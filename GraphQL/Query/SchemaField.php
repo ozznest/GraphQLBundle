@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL\Query;
+namespace Ozznest\GraphQLBundle\GraphQL\Query;
 
 use Youshido\GraphQL\Introspection\Field\SchemaField as BaseSchemaField;
-use Fozzy\GraphQLBundle\GraphQL\Type\SchemaType;
+use Ozznest\GraphQLBundle\GraphQL\Type\SchemaType;
 
 class SchemaField extends BaseSchemaField
 {

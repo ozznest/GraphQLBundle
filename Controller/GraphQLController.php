@@ -6,12 +6,12 @@
  * Time: 13:36
  */
 
-namespace Fozzy\GraphQLBundle\Controller;
+namespace Ozznest\GraphQLBundle\Controller;
 
 
 
-use Fozzy\GraphQLBundle\Event\BeforeGetGraphqlResponse;
-use Fozzy\GraphQLBundle\Event\GraphqlSchemaCreateEvent;
+use Ozznest\GraphQLBundle\Event\BeforeGetGraphqlResponse;
+use Ozznest\GraphQLBundle\Event\GraphqlSchemaCreateEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -1,5 +1,5 @@
 services:
-  Fozzy\GraphQLBundle\EventSubscriber\GraphqlSchemaCreate:
+  Ozznest\GraphQLBundle\EventSubscriber\GraphqlSchemaCreate:
     autowire: true
     autoconfigure: true
     arguments:
@@ -8,7 +8,7 @@ services:
       $tagged_queries: !tagged graphql_query
       $tagged_mutations: !tagged graphql_mutation
 
-  Fozzy\GraphQLBundle\Controller\:
+  Ozznest\GraphQLBundle\Controller\:
     resource: '../../Controller/'
     autowire: true
     tags: ['controller.service_arguments']

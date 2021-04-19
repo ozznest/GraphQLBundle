@@ -6,8 +6,8 @@
  * Time: 17:30
  */
 
-namespace Fozzy\GraphQLBundle\EventSubscriber;
-use Fozzy\GraphQLBundle\Event\GraphqlSchemaCreateEvent;
+namespace Ozznest\GraphQLBundle\EventSubscriber;
+use Ozznest\GraphQLBundle\Event\GraphqlSchemaCreateEvent;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

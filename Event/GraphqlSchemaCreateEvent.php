@@ -6,7 +6,7 @@
  * Time: 12:38
  */
 
-namespace Fozzy\GraphQLBundle\Event;
+namespace Ozznest\GraphQLBundle\Event;
 
 
 use Symfony\Component\EventDispatcher\Event;

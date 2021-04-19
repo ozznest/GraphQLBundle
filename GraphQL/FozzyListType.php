@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
 use Youshido\GraphQL\Config\Object\ListTypeConfig;
 use Youshido\GraphQL\Type\ListType\AbstractListType;

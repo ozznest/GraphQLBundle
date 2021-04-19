@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class FozzyGraphQLBundle extends Bundle
+class GraphQLBundle extends Bundle
 {
     public function build(ContainerBuilder $container){
         parent::build($container);

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL\Type;
+namespace Ozznest\GraphQLBundle\GraphQL\Type;
 
-use Fozzy\GraphQLBundle\GraphQL\GraphqlTypeInterface;
+use Ozznest\GraphQLBundle\GraphQL\GraphqlTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Youshido\GraphQL\Field\Field;
 use Youshido\GraphQL\Introspection\DirectiveType;
-use Fozzy\GraphQLBundle\GraphQL\Query\TypesField;
+use Ozznest\GraphQLBundle\GraphQL\Query\TypesField;
 use Youshido\GraphQL\Introspection\QueryType;
 use Youshido\GraphQL\Introspection\SchemaType as BaseSchemaType;
 use Youshido\GraphQL\Type\ListType\ListType;

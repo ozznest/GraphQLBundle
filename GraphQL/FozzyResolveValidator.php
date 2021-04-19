@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
 use Fozzy\GraphQLBundle\Utils\Helper;
 use Youshido\GraphQL\Exception\ResolveException;

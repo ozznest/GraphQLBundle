@@ -1,5 +1,5 @@
 <?php
-namespace Fozzy\GraphQLBundle\Annotation\GraphQL;
+namespace Ozznest\GraphQLBundle\Annotation\GraphQL;
 
 use Doctrine\Common\Annotations\Annotation;
 

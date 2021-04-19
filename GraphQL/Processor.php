@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
 use Fozzy\GraphQLBundle\Utils\Helper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpPrivateFieldCanBeLocalVariableInspection */
 
 
-namespace Fozzy\GraphQLBundle\GraphQL;
+namespace Ozznest\GraphQLBundle\GraphQL;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Youshido\GraphQL\Exception\ConfigurationException;

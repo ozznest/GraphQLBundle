@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL\Type;
+namespace Ozznest\GraphQLBundle\GraphQL\Type;
 
 
 use AppBundle\GraphQL\Type\Batch\BatchResultType;
-use Fozzy\GraphQLBundle\GraphQL\FozzyListType;
+use Ozznest\GraphQLBundle\GraphQL\FozzyListType;
 use Youshido\GraphQL\Type\AbstractType;
 use Youshido\GraphQL\Type\ListType\ListType;
 use Youshido\GraphQL\Type\Scalar\IntType;

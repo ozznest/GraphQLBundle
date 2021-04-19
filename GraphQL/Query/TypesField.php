@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Fozzy\GraphQLBundle\GraphQL\Query;
+namespace Ozznest\GraphQLBundle\GraphQL\Query;
 
-use Fozzy\GraphQLBundle\GraphQL\GraphqlQueryInterface;
+use Ozznest\GraphQLBundle\GraphQL\GraphqlQueryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Youshido\GraphQL\Introspection\Field\TypesField as BaseTypesField;
 use Youshido\GraphQL\Type\AbstractType;

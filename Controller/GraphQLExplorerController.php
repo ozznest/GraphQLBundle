@@ -5,7 +5,7 @@
  * @author Portey Vasil <portey@gmail.com>
  */
 
-namespace Fozzy\GraphQLBundle\Controller;
+namespace Ozznest\GraphQLBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Youshido\GraphQLBundle\Controller\GraphQLExplorerController as BaseController;

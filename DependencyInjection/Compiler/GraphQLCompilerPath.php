@@ -1,13 +1,13 @@
 <?php
 
-namespace Fozzy\GraphQLBundle\DependencyInjection\Compiler;
+namespace Ozznest\GraphQLBundle\DependencyInjection\Compiler;
 
 use Composer\Autoload\ClassMapGenerator;
-use Fozzy\GraphQLBundle\Annotation\GraphQL\MarkToRemove;
-use Fozzy\GraphQLBundle\GraphQL\ExecutionContext;
-use Fozzy\GraphQLBundle\GraphQL\GraphqlMutationInterface;
-use Fozzy\GraphQLBundle\GraphQL\GraphqlQueryInterface;
-use Fozzy\GraphQLBundle\GraphQL\GraphqlTypeInterface;
+use Ozznest\GraphQLBundle\Annotation\GraphQL\MarkToRemove;
+use Ozznest\GraphQLBundle\GraphQL\ExecutionContext;
+use Ozznest\GraphQLBundle\GraphQL\GraphqlMutationInterface;
+use Ozznest\GraphQLBundle\GraphQL\GraphqlQueryInterface;
+use Ozznest\GraphQLBundle\GraphQL\GraphqlTypeInterface;
 use ReflectionClass;
 use ReflectionException;
 use RuntimeException;

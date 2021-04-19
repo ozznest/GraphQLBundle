@@ -3,7 +3,7 @@
 
 namespace Ozznest\GraphQLBundle\GraphQL;
 
-use Fozzy\GraphQLBundle\Utils\Helper;
+use Ozznest\GraphQLBundle\Utils\Helper;
 use Youshido\GraphQL\Exception\ResolveException;
 use Youshido\GraphQL\Execution\Context\ExecutionContext;
 use Youshido\GraphQL\Field\FieldInterface;
@@ -13,9 +13,9 @@ use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\TypeMap;
 use Youshido\GraphQL\Type\TypeService;
 use Youshido\GraphQL\Type\Union\AbstractUnionType;
-use Youshido\GraphQL\Validator\ResolveValidator\ResolveValidator;
+use Youshido\GraphQL\Validator\ResolveValidator\ResolveValidator as BaseResolveValidator;
 
-class ResolveValidator extends ResolveValidator
+class ResolveValidator extends BaseResolveValidator
 {
 
     private $executionContext;

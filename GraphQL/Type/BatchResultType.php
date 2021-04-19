@@ -5,9 +5,8 @@ namespace Ozznest\GraphQLBundle\GraphQL\Type;
 
 
 use AppBundle\GraphQL\Type\Batch\BatchResultType as BaseBatchResultType;
-use Ozznest\GraphQLBundle\GraphQL\FozzyListType;
+use Ozznest\GraphQLBundle\GraphQL\ListType;
 use Youshido\GraphQL\Type\AbstractType;
-use Youshido\GraphQL\Type\ListType\ListType;
 use Youshido\GraphQL\Type\Scalar\IntType;
 
 class BatchResultType extends BaseBatchResultType
@@ -31,7 +30,7 @@ class BatchResultType extends BaseBatchResultType
            'limit'  => new IntType(),
            'offset' => new IntType(),
            'count'  => new IntType(),
-           'items'  => new FozzyListType($listType), //@codingStandardsIgnoreLine
+           'items'  => new ListType($listType), //@codingStandardsIgnoreLine
        ]);
     }
 

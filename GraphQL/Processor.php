@@ -3,7 +3,7 @@
 
 namespace Ozznest\GraphQLBundle\GraphQL;
 
-use Fozzy\GraphQLBundle\Utils\Helper;
+use Ozznest\GraphQLBundle\Utils\Helper;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Youshido\GraphQL\Exception\ResolveException;
 use Youshido\GraphQL\Execution\Context\ExecutionContextInterface;

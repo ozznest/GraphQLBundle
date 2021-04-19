@@ -21,7 +21,7 @@ use Youshido\GraphQL\Field\AbstractField;
 /**
  * Class GraphQLCompilerPath
  *
- * @package Fozzy\GraphQLBundle\DependencyInjection\Compiler
+ * @package Ozznest\GraphQLBundle\DependencyInjection\Compiler
  */
 class GraphQLCompilerPath implements CompilerPassInterface
 {

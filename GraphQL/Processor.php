@@ -31,7 +31,6 @@ use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\Scalar\AbstractScalarType;
 use Youshido\GraphQL\Type\TypeMap;
 use Youshido\GraphQL\Type\Union\AbstractUnionType;
-use Youshido\GraphQL\Validator\ResolveValidator\ResolveValidator;
 use Youshido\GraphQLBundle\Execution\Processor as BaseProcessor;
 
 class Processor extends BaseProcessor

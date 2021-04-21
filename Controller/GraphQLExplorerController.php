@@ -7,7 +7,7 @@
 
 namespace Ozznest\GraphQLBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Youshido\GraphQLBundle\Controller\GraphQLExplorerController as BaseController;
 class GraphQLExplorerController extends BaseController
 {

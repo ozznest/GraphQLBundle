@@ -1,6 +1,6 @@
 {
     "name": "ozznest/graphql-bundle",
-    "version": "0.9",
+    "version": "0.10",
     "description": "Symfony GraphQl Bundle",
     "license": "MIT",
     "authors": [

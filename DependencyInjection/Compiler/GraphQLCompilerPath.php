@@ -17,6 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\Filesystem\Filesystem;
 use Youshido\GraphQL\Field\AbstractField;
+use Doctrine\Common\Annotations\CachedReader;
 
 /**
  * Class GraphQLCompilerPath
@@ -30,6 +31,9 @@ class GraphQLCompilerPath implements CompilerPassInterface
      */
     private $container;
 
+    /**
+     * @var CachedReader
+     */
     private $annotations_reader;
 
     private $queries;

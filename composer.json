@@ -1,6 +1,6 @@
 {
     "name": "ozznest/graphql-bundle",
-    "version": "0.10",
+    "version": "0.11",
     "description": "Symfony GraphQl Bundle",
     "license": "MIT",
     "authors": [
@@ -18,8 +18,8 @@
         "php": ">=7.2",
         "youshido/graphql": "~1.4",
         "composer/composer": "^1.10||^2.0",
-        "symfony/symfony": "^3.4"
-
+        "symfony/symfony": "^3.4",
+        "doctrine/annotations":"^1.12"
     },
     "require-dev": {
 

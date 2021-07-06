@@ -4,7 +4,7 @@ namespace Ozznest\GraphQLBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
-final class BeforeGetGraphqlResponse extends Event
+class BeforeGetGraphqlResponse extends Event
 {
     const NAME = 'before_get_graphql_response';
 
@@ -44,4 +44,13 @@ final class BeforeGetGraphqlResponse extends Event
     {
         return $this->graphqlResponse;
     }
+
+    /**
+     * @param mixed $graphqlResponse
+     */
+    public function setGraphqlResponse($graphqlResponse): void
+    {
+        $this->graphqlResponse = $graphqlResponse;
+    }
+
 }

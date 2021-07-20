@@ -14,11 +14,12 @@ class BeforeGetGraphqlResponse extends Event
 
     private $graphqlResponse;
 
-    public function __construct($graphqlQuery, $graphqlVariables, $graphqlResponse)
+
+    public function __construct($graphqlQuery, $graphqlVariables, &$graphqlResponse)
     {
         $this->graphqlQuery = $graphqlQuery;
         $this->graphqlVariables = $graphqlVariables;
-        $this->graphqlResponse = $graphqlResponse;
+        $this->graphqlResponse = &$graphqlResponse;
     }
 
     /**

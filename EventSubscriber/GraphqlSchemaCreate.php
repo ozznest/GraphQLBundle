@@ -19,9 +19,9 @@ class GraphqlSchemaCreate  implements EventSubscriberInterface
 
     private ContainerInterface $container;
 
-    private ?array $tagged_queries;
+    private $tagged_queries;
 
-    private ?array $tagged_mutations;
+    private $tagged_mutations;
 
     public function __construct(ContainerInterface $container, $mutations_dir, $query_dir, $tagged_queries, $tagged_mutations)
     {

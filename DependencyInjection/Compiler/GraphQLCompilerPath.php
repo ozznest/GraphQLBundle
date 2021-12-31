@@ -28,11 +28,11 @@ class GraphQLCompilerPath implements CompilerPassInterface
 {
     private ?ContainerInterface $container;
 
-    private ?CachedReader $annotations_reader;
+    private $annotations_reader;
 
-    private ?array $queries;
+    private $queries;
 
-    private ?array $mutations;
+    private $mutations;
 
     /**
      * @throws ReflectionException

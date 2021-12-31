@@ -63,7 +63,7 @@ class GraphQLController  extends BaseController
                 $schema->setContainer($this->container);
             }
             $this->container->set('graphql.schema', $schema);
-            $this->dispstcher->dispatch(GraphqlSchemaCreateEvent::NAME, new GraphqlSchemaCreateEvent($schema));
+            $this->dispstcher->dispatch(new GraphqlSchemaCreateEvent($schema));
 
         }
 
@@ -92,7 +92,7 @@ class GraphQLController  extends BaseController
 
         $processor->processPayload($query, $variables);
         $response = $processor->getResponseData();
-        $this->dispstcher->dispatch(BeforeGetGraphqlResponse::NAME, new BeforeGetGraphqlResponse($query, $variables, $response));
+        $this->dispstcher->dispatch(new BeforeGetGraphqlResponse($query, $variables, $response));
         return $response;
     }
 

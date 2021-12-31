@@ -37,7 +37,7 @@ class GraphqlSchemaCreate  implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            GraphqlSchemaCreateEvent::NAME => 'onSchemaCreate'
+            GraphqlSchemaCreateEvent::class => 'onSchemaCreate'
         ];
     }
     public function onSchemaCreate(GraphqlSchemaCreateEvent $event){

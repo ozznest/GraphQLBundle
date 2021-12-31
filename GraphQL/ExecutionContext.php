@@ -17,13 +17,9 @@ class ExecutionContext extends BaseExecutionContext
 {
     use ErrorContainerTrait;
 
-    /** @var AbstractSchema */
-    private $schema;
+    private AbstractSchema $schema;
 
-    //private $container;
-
-    /** @var Request */
-    private $request;
+    private Request $request;
 
     /** @var array */
     private $typeFieldLookupTable;
@@ -78,16 +74,12 @@ class ExecutionContext extends BaseExecutionContext
         return $this->typeFieldLookupTable[$typeName][$fieldName];
     }
 
-    /**
-     * @return AbstractSchema
-     */
-    public function getSchema()
+    public function getSchema():AbstractSchema
     {
         return $this->schema;
     }
 
     /**
-     * @param AbstractSchema $schema
      *
      * @return \Youshido\GraphQL\Execution\Context\ExecutionContext
      */
@@ -98,17 +90,12 @@ class ExecutionContext extends BaseExecutionContext
         return $this;
     }
 
-    /**
-     * @return Request
-     */
-    public function getRequest()
+    public function getRequest():Request
     {
         return $this->request;
     }
 
     /**
-     * @param Request $request
-     *
      * @return $this
      */
     public function setRequest(Request $request)

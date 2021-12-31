@@ -19,7 +19,7 @@ use Youshido\GraphQL\Field\AbstractField;
 class TypeDefinitionField extends AbstractField implements GraphqlQueryInterface
 {
 
-    private $container;
+    private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
     {
@@ -27,7 +27,6 @@ class TypeDefinitionField extends AbstractField implements GraphqlQueryInterface
         parent::__construct([]);
     }
 
-    //use TypeCollectorTrait;
 
     public function resolve($value = null, array $args, ResolveInfo $info)
     {

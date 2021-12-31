@@ -11,7 +11,7 @@ use Youshido\GraphQL\Validator\SchemaValidator\SchemaValidator as BaseSchemaVali
 
 class SchemaValidator extends BaseSchemaValidator
 {
-    private $container;
+    private ContainerInterface $container;
 
     private $configValidator = null;
 

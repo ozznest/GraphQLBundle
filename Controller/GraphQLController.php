@@ -26,9 +26,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class GraphQLController  extends BaseController
 {
 
-    private  $requestStack;
-    private  $dispstcher;
-    protected  $container;
+    private  RequestStack $requestStack;
+    private  EventDispatcherInterface $dispstcher;
+    protected  ContainerInterface $container;
 
     public function __construct(RequestStack  $requestStack, EventDispatcherInterface $dispatcher, ContainerInterface $container)
     {

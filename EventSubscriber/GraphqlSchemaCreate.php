@@ -14,16 +14,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GraphqlSchemaCreate  implements EventSubscriberInterface
 {
-    private $mutations_dir;
-    private $query_dir;
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
+    private ?string $mutations_dir;
+    private ?string $query_dir;
 
-    private $tagged_queries;
+    private ContainerInterface $container;
 
-    private $tagged_mutations;
+    private ?array $tagged_queries;
+
+    private ?array $tagged_mutations;
 
     public function __construct(ContainerInterface $container, $mutations_dir, $query_dir, $tagged_queries, $tagged_mutations)
     {

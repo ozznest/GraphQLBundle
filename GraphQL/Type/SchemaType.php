@@ -15,7 +15,7 @@ use Youshido\GraphQL\Type\ListType\ListType;
 class SchemaType extends BaseSchemaType implements GraphqlTypeInterface
 {
 
-    private $container;
+    private ContainerInterface $container;
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

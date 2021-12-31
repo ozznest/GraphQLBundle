@@ -36,8 +36,6 @@ use Youshido\GraphQLBundle\Execution\Processor as BaseProcessor;
 class Processor extends BaseProcessor
 {
 
-    //protected $executionContext;
-
     public function __construct(ExecutionContextInterface $executionContext, EventDispatcherInterface $eventDispatcher)
     {
 
@@ -282,8 +280,6 @@ class Processor extends BaseProcessor
     }
 
     /**
-     * @param FieldInterface     $field
-     * @param AbstractObjectType $type
      * @param AstFieldInterface  $ast
      * @param                    $resolvedValue
      * @return array

@@ -26,23 +26,15 @@ use Doctrine\Common\Annotations\CachedReader;
  */
 class GraphQLCompilerPath implements CompilerPassInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
+    private ?ContainerInterface $container;
+
+    private ?CachedReader $annotations_reader;
+
+    private ?array $queries;
+
+    private ?array $mutations;
 
     /**
-     * @var CachedReader
-     */
-    private $annotations_reader;
-
-    private $queries;
-
-    private $mutations;
-
-    /**
-     * @param ContainerBuilder $container
-     *
      * @throws ReflectionException
      */
     public function process(ContainerBuilder $container)

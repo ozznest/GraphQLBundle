@@ -14,7 +14,7 @@ use Youshido\GraphQL\Type\Union\AbstractUnionType;
 
 class TypesField extends BaseTypesField implements GraphqlQueryInterface
 {
-    private $container;
+    private ContainerInterface $container;
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

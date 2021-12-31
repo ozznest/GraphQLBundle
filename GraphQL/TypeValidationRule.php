@@ -13,7 +13,7 @@ use Youshido\GraphQL\Validator\ConfigValidator\Rules\TypeValidationRule as BaseT
 
 class TypeValidationRule extends BaseTypeValidationRule
 {
-    private $configValidator;
+    private ConfigValidator $configValidator;
 
     public function __construct(ConfigValidator $validator)
     {

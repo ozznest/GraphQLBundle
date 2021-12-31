@@ -6,7 +6,6 @@ use Symfony\Component\EventDispatcher\Event;
 
 class BeforeGetGraphqlResponse extends Event
 {
-    const NAME = 'before_get_graphql_response';
 
     private $graphqlQuery;
 

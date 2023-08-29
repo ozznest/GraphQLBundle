@@ -4,7 +4,6 @@
 namespace Ozznest\GraphQLBundle\GraphQL\Type;
 
 
-use AppBundle\GraphQL\Type\Batch\BatchResultType as BaseBatchResultType;
 use Ozznest\GraphQLBundle\GraphQL\ListType;
 use Youshido\GraphQL\Type\AbstractType;
 use Youshido\GraphQL\Type\Scalar\IntType;

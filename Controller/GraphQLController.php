@@ -30,8 +30,11 @@ class GraphQLController  extends BaseController
     private EventDispatcherInterface $dispstcher;
     protected $container;
 
-    public function __construct(RequestStack  $requestStack, EventDispatcherInterface $dispatcher, ContainerInterface $container)
-    {
+    public function __construct(
+        RequestStack  $requestStack,
+        EventDispatcherInterface $dispatcher,
+        ContainerInterface $container
+    ) {
         $this->requestStack = $requestStack;
         $this->dispstcher = $dispatcher;
         $this->container = $container;
@@ -52,9 +55,9 @@ class GraphQLController  extends BaseController
 
         list($queries, $isMultiQueryRequest) = $this->getPayload();
 
-        $schemaClass = $this->getParameter('graphql.schema_class');
+        $schemaClass = $this->container->getParameter('graphql.schema_class');
         if (!$schemaClass || !class_exists($schemaClass)) {
-            return new JsonResponse([['message' => 'Schema class ' . $schemaClass . ' does not exist']], 200, $this->getParameter('graphql.response.headers'));
+            return new JsonResponse([['message' => 'Schema class ' . $schemaClass . ' does not exist']], 200, $this->container->getParameter('graphql.response.headers'));
         }
 
         if (!$this->container->initialized('graphql.schema')) {
@@ -71,9 +74,9 @@ class GraphQLController  extends BaseController
             return $this->executeQuery($queryData['query'], $queryData['variables']);
         }, $queries);
 
-        $response = new JsonResponse($isMultiQueryRequest ? $queryResponses : $queryResponses[0], 200, $this->getParameter('graphql.response.headers'));
+        $response = new JsonResponse($isMultiQueryRequest ? $queryResponses : $queryResponses[0], 200, $this->container->getParameter('graphql.response.headers'));
 
-        if ($this->getParameter('graphql.response.json_pretty')) {
+        if ($this->container->getParameter('graphql.response.json_pretty')) {
             $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         }
 
@@ -82,7 +85,7 @@ class GraphQLController  extends BaseController
 
     private function createEmptyResponse()
     {
-        return new JsonResponse([], 200, $this->getParameter('graphql.response.headers'));
+        return new JsonResponse([], 200, $this->container->getParameter('graphql.response.headers'));
     }
 
     private function executeQuery($query, $variables)

@@ -9,7 +9,7 @@
 namespace Ozznest\GraphQLBundle\Event;
 
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Youshido\GraphQL\Schema\AbstractSchema;
 
 class GraphqlSchemaCreateEvent extends Event

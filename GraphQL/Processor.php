@@ -299,7 +299,7 @@ class Processor extends BaseProcessor
                     if ($typeName !== $astName) {
                         foreach ($type->getInterfaces() as $interface) {
                             if ($interface->getName() === $astName) {
-                                $results[] = $this->collectResult($field, $type, $astField, $resolvedValue);
+                                $result = array_replace_recursive($result, $this->collectResult($field, $type, $astField, $resolvedValue));
 
                                 break;
                             }
@@ -308,7 +308,7 @@ class Processor extends BaseProcessor
                         continue 2;
                     }
 
-                    $results[] = $this->collectResult($field, $type, $astField, $resolvedValue);
+                    $result = array_replace_recursive($result, $this->collectResult($field, $type, $astField, $resolvedValue));
 
                     break;
 
@@ -320,7 +320,7 @@ class Processor extends BaseProcessor
                     if ($typeName !== $astFragmentModel) {
                         foreach ($type->getInterfaces() as $interface) {
                             if ($interface->getName() === $astFragmentModel) {
-                                $results[] = $this->collectResult($field, $type, $astFragment, $resolvedValue);
+                                $result = array_replace_recursive($result, $this->collectResult($field, $type, $astFragment, $resolvedValue));
 
                                 break;
                             }
@@ -329,18 +329,16 @@ class Processor extends BaseProcessor
                         continue 2;
                     }
 
-                    $results[] = $this->collectResult($field, $type, $astFragment, $resolvedValue);
+                    $result = array_replace_recursive($result, $this->collectResult($field, $type, $astFragment, $resolvedValue));
 
                     break;
 
                 default:
-
-
-                    $results[] = [$this->getAlias($astField) => $this->resolveField($field, $astField, $resolvedValue, true)];
+                    $result = array_replace_recursive($result, [$this->getAlias($astField) => $this->resolveField($field, $astField, $resolvedValue, true)]);
             }
         }
 
-        return $this->combineResults($results);
+        return $result;
     }
 
     private function getAlias(AstFieldInterface $ast)
@@ -375,10 +373,10 @@ class Processor extends BaseProcessor
             }
 
             $fakeField = new Field([
-                                       'name' => $field->getName(),
-                                       'type' => $itemType,
-                                       'args' => $field->getArguments(),
-                                   ]);
+                'name' => $field->getName(),
+                'type' => $itemType,
+                'args' => $field->getArguments(),
+            ]);
 
             $result = [];
             foreach ($resolvedValue as $resolvedValueItem) {
@@ -453,10 +451,10 @@ class Processor extends BaseProcessor
             }
 
             $fakeField = new Field([
-                                       'name' => $field->getName(),
-                                       'type' => $resolvedType,
-                                       'args' => $field->getArguments(),
-                                   ]);
+                'name' => $field->getName(),
+                'type' => $resolvedType,
+                'args' => $field->getArguments(),
+            ]);
 
             return $this->resolveObject($fakeField, $ast, $resolvedValue, true);
         });

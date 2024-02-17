@@ -286,7 +286,7 @@ class Processor extends BaseProcessor
      */
     private function collectResult(FieldInterface $field, AbstractObjectType $type, $ast, $resolvedValue)
     {
-        $results = [];
+        $result = [];
         if(Helper::isService($resolvedValue)){
             $resolvedValue = $this->executionContext->get(Helper::getServiceString($resolvedValue));
         }
